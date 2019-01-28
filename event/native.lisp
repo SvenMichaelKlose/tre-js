@@ -8,10 +8,8 @@
    (elm.remove-event-listener typ fun false))
 
 (fn native-stop-event (evt)
-  (& evt.prevent-default
-     (evt.prevent-default))
-  (& evt.stop-propagation
-     (evt.stop-propagation)))
+  (evt.prevent-default)
+  (evt.stop-propagation))
 
 (fn native-fire-event (elm event-name)
   (!= (document.create-event "HTMLEvents")
