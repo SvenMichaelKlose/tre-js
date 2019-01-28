@@ -214,8 +214,6 @@
      (& (defined? style.remove-property)
 	    (style.remove-property "opacity"))
      (set-style "opacity" x))
-  (alet (/ 1 1000) ; TODO Floating point bug in PRINT.
-    (= this.style.filter (+ "alpha(opacity=" (* (? (< x !) ! x) 100) ")")))
   x)
 
 (defmethod caroshi-element set-rotation (x)
