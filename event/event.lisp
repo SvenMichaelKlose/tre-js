@@ -9,36 +9,36 @@
   this)
 
 (defmember caroshi-event
-	_native-event
-	type
-	_x
-	_y
-	_element
-	button
-	char-code
-	key-code
-	data-transfer
-	_stop
-	_send-natively?)
+    _native-event
+    type
+    _x
+    _y
+    _element
+    button
+    char-code
+    key-code
+    data-transfer
+    _stop
+    _send-natively?)
 
 (defmethod caroshi-event _copy-native-event-data (evt)
   (= _native-event evt
      type          evt.type
-	 _element      (dom-extend evt.target)
-	button evt.button)
+     _element      (dom-extend evt.target)
+    button evt.button)
   (? (eql "keypress" type)
      (= char-code (| evt.which evt.char-code evt.key-code))
-	 (= key-code evt.key-code))
+     (= key-code evt.key-code))
   (with (docelm document.document-element
-		 body   document.body)
-  	(= _x (| evt.page-x
-		     (number+ evt.client-x (- (| docelm.scroll-left body.scroll-left)
-						              (| docelm.client-left 0)))))
-  	(= _y (| evt.page-y
-		     (number+ evt.client-y (- (| docelm.scroll-top body.scroll-top)
-									     (| docelm.client-top 0))))))
+         body   document.body)
+    (= _x (| evt.page-x
+             (number+ evt.client-x (- (| docelm.scroll-left body.scroll-left)
+                                      (| docelm.client-left 0)))))
+    (= _y (| evt.page-y
+             (number+ evt.client-y (- (| docelm.scroll-top body.scroll-top)
+                                         (| docelm.client-top 0))))))
   (when (defined? evt.data-transfer)
-	(= data-transfer evt.data-transfer))
+    (= data-transfer evt.data-transfer))
   this)
 
 (defmethod caroshi-event mouse-event? ()
@@ -62,11 +62,11 @@
       (= x (- x e.offset-left))
       (= y (- y e.offset-top)))))
 
-(defmethod caroshi-event bubble	()
+(defmethod caroshi-event bubble ()
   (awhen _element
-	(unless (| (not (element? !))
+    (unless (| (not (element? !))
                (eql "BODY" !.tag-name))
-	  (= _element !.parent-node))))
+      (= _element !.parent-node))))
 
 (defmethod caroshi-event discard ()
   (= _stop t))

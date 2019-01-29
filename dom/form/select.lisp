@@ -43,13 +43,13 @@
 
 (fn form-select-get-selected-option-value (x)
   (let-when o (form-select-get-selected-option x)
-	(o.read-attribute "value")))
+    (o.read-attribute "value")))
 
 (fn form-select-add-option (x txt &optional (attrs nil))
   (with (select-element  (x.get "<select")
-		 option-element  (new *element "option" attrs))
-	(option-element.add-text txt)
-	(select-element.add option-element)))
+         option-element  (new *element "option" attrs))
+    (option-element.add-text txt)
+    (select-element.add option-element)))
 
 (fn form-select-rename-option (option-element txt)
   (option-element.remove-children)
@@ -63,14 +63,14 @@
 
 (fn form-select-add-string-list-options (select-element options)
   (when options
-	(let option-element (new *element "option")
-	  (option-element.add-text (list-string options.))
-	  (select-element.add option-element))
-	(form-select-add-string-list-options select-element .options)))
+    (let option-element (new *element "option")
+      (option-element.add-text (list-string options.))
+      (select-element.add option-element))
+    (form-select-add-string-list-options select-element .options)))
 
 (fn form-select-sort (x)
   (with (select-element  (x.get "<select")
-		 option-list     (form-select-option-texts-to-string-lists (form-select-get-options x))
-		 sorted-options  (sort option-list :test #'<=-list)) ; TODO: Fix me.
-	(select-element.remove-children)
-	(form-select-add-string-list-options select-element sorted-options)))
+         option-list     (form-select-option-texts-to-string-lists (form-select-get-options x))
+         sorted-options  (sort option-list :test #'<=-list)) ; TODO: Fix me.
+    (select-element.remove-children)
+    (form-select-add-string-list-options select-element sorted-options)))

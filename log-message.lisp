@@ -4,7 +4,7 @@
                               (logwindow-add-string (? (string? c)
                                                        c
                                                        (char-string c))))
-	           :fun-eof	  #'((str)
+               :fun-eof   #'((str)
                               t)))
 
 (defvar *standard-log* (make-log-stream))
@@ -29,7 +29,7 @@
       (document-extend doc)
       (= doc.title "Console")
       (doc.body.add (new *element "div"))
-	  (doc.body.set-styles (hash-merge *terminal-css* (new :width "100%")))
+      (doc.body.set-styles (hash-merge *terminal-css* (new :width "100%")))
       ,@(when *have-compiler?*
           '((let form (new *element "form")
               (doc.body.add form)

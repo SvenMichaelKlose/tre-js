@@ -5,9 +5,9 @@
   this)
 
 (defmember _event-handler
-	element
-	type
-	callback)
+    element
+    type
+    callback)
 
 (defmethod _event-handler has-element (x)
   (eq element x))

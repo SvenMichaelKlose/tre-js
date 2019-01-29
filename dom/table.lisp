@@ -12,7 +12,7 @@
 
 (fn table-get-column-0 (x idx)
   (& x
-	 (. (x.get-child-at idx)
+     (. (x.get-child-at idx)
         (table-get-column-0 x.next-sibling idx))))
 
 (fn table-get-column (x)
@@ -20,8 +20,8 @@
 
 (fn table-insert-column (drop-cell column after?)
   (assert (== (length (table-get-rows drop-cell))
-		      (length column))
-	  	  (error "column not the same"))
+              (length column))
+          (error "column not the same"))
   (let index (drop-cell.get-index)
     (mapcar #'((row column-cell)
                 ((row.get-child-at index).insert-next-to column-cell after?))

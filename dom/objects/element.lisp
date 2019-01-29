@@ -6,9 +6,9 @@
 
 (fn make-attribute-xlat ()
   (maphash #'((k v)
-		        (= (aref *attribute-xlat-rev* v) k)
-		        (= (aref *attribute-xlat-rev* (downcase v)) k))
-	   	   *attribute-xlat*))
+                (= (aref *attribute-xlat-rev* v) k)
+                (= (aref *attribute-xlat-rev* (downcase v)) k))
+           *attribute-xlat*))
 (make-attribute-xlat)
 
 (fn xlat-attribute (x)
@@ -21,30 +21,30 @@
 
 (fn *element (name &optional (attrs nil) (style nil) &key (doc document) (ns nil))
   (aprog1 (make-native-element name doc ns)
-	(hash-merge ! caroshi-element.prototype)
+    (hash-merge ! caroshi-element.prototype)
     (!.write-attributes attrs)
-	(!.set-styles style)))
+    (!.set-styles style)))
 
 (defclass (caroshi-element visible-node) ())
 
 (defmember caroshi-element
     append-child
-	attributes
-	child-nodes
-	children
-	first-child
-	set-attribute get-attribute remove-attribute
-	get-elements-by-class-name
-	get-elements-by-tag-name
-	has-child-nodes
-	inner-h-t-m-l
-	style
-	tag-name
-	width height
-	offset-width offset-height
-	offset-left offset-right
-	offset-top offset-bottom
-	offset-parent
+    attributes
+    child-nodes
+    children
+    first-child
+    set-attribute get-attribute remove-attribute
+    get-elements-by-class-name
+    get-elements-by-tag-name
+    has-child-nodes
+    inner-h-t-m-l
+    style
+    tag-name
+    width height
+    offset-width offset-height
+    offset-left offset-right
+    offset-top offset-bottom
+    offset-parent
     owner-document
     query-selector
     query-selector-all
@@ -55,9 +55,9 @@
 
 (defmethod caroshi-element remove-children ()
   (do-children (x this this)
-	(? (element? x)
+    (? (element? x)
        (x.remove)
-	   (x.remove-without-listeners))))
+       (x.remove-without-listeners))))
 
 (defmethod caroshi-element remove-children-without-listeners ()
   (do-children (x this this)
@@ -79,9 +79,9 @@
 
 (defmethod caroshi-element add-front (child)
   (& child
-	 (? first-child
+     (? first-child
         (first-child.add-before child)
-	    (append-child child)))
+        (append-child child)))
   this)
 
 (defmethod caroshi-element move-front ()
@@ -109,8 +109,8 @@
   (let attrs (make-hash-table)
     (doarray (a attributes attrs)
       (= (href attrs (| (aref *attribute-xlat-rev* a.node-name)
-			  		    a.node-name))
-	     a.node-value))))
+                        a.node-name))
+         a.node-value))))
 
 (defmethod caroshi-element attribute-names ()
   (let attrs (make-queue)
@@ -127,8 +127,8 @@
 
 (defmethod caroshi-element has-attribute? (name)
   (doarray (a attributes)
-	(& (string== a.node-name name)
-	   (return t))))
+    (& (string== a.node-name name)
+       (return t))))
 
 (defmethod caroshi-element attribute-value? (name val)
   (& (has-attribute? name)
@@ -181,13 +181,13 @@
 
 (defmethod caroshi-element get-id (id)
   (!? (read-attribute "id")
-	  (unless (empty-string? !)
-	    (number !))))
+      (unless (empty-string? !)
+        (number !))))
 
 (defmethod caroshi-element set-styles (styles)
   (maphash #'((k v)
                (set-style k v))
-	       styles)
+           styles)
   styles)
 
 (defmethod caroshi-element remove-styles ()
@@ -212,7 +212,7 @@
 (defmethod caroshi-element set-opacity (x)
   (? (== 1 x)
      (& (defined? style.remove-property)
-	    (style.remove-property "opacity"))
+        (style.remove-property "opacity"))
      (set-style "opacity" x))
   x)
 
@@ -238,8 +238,8 @@
                  (alet this.style.top
                    (integer (subseq ! 0 (- (length !) 2)))))
      (do ((x 0)
-	      (y 0)
-	      (i this i.offset-parent))
+          (y 0)
+          (i this i.offset-parent))
          ((not i) (make-array x y))
        (+! x i.offset-left)
        (+! y i.offset-top))))
@@ -252,8 +252,8 @@
 
 (defmethod caroshi-element get-width ()
   (alet (| (? (< 0 offset-width)
-	          offset-width
-	          width)
+              offset-width
+              width)
            0)
     (& (number? !)
        !)))
@@ -286,19 +286,19 @@
 
 (defmethod caroshi-element find-element-at (x y)
   (do-children (i this this)
-	(& (element? i)
-	   (i.inside? x y)
-	   (return (| (i.find-element-at x y)
-			  	  this)))))
+    (& (element? i)
+       (i.inside? x y)
+       (return (| (i.find-element-at x y)
+                  this)))))
 
 (defmethod caroshi-element from-point (x y)
   (& (inside? x y)
-	 (? (& (element? this)
+     (? (& (element? this)
            first-child)
-	    (do-children (i this)
-		  (!? (i.seek-element x y)
+        (do-children (i this)
+          (!? (i.seek-element x y)
               (return !)))
-	    this)))
+        this)))
 
 (defmethod caroshi-element is? (css-selector)
   (member this (array-list ((| parent-node
@@ -348,15 +348,15 @@
   (assert (integer<= 0 idx) (+ "caroshi-element get-child-at " idx " is not a positive integer"))
   (let x first-child
     (while (< 0 idx)
-		   x
-	  (--! idx)
-	  (= x x.next-sibling))))
+           x
+      (--! idx)
+      (= x x.next-sibling))))
 
 (defmethod caroshi-element blank? ()
   (& (empty-string? text-content)
      (do-children (i this t)
        (& (element? i)
-	      (return nil)))))
+          (return nil)))))
 
 (mapcar-macro _ (remove "focus" *all-events*) ; TODO: Prefix names instead?
   `(defmethod caroshi-element ,(make-symbol (upcase _)) (fun)

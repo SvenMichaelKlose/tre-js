@@ -1,38 +1,38 @@
 ; TODO: Make HTML5 style.
 (fn get-viewport (&optional (win window))
   (with (x   0
-		 y   0
+         y   0
          wd  win.document
-		 w   (| win.inner-width
-			    wd.document-element.client-width
-			    wd.body.client-width)
-		 h   (| win.inner-height
-			    wd.document-element.client-height
-			    wd.body.client-height))
+         w   (| win.inner-width
+                wd.document-element.client-width
+                wd.body.client-width)
+         h   (| win.inner-height
+                wd.document-element.client-height
+                wd.body.client-height))
     (?
-  	  wd.document-element.scroll-left
+      wd.document-element.scroll-left
         (= x wd.document-element.scroll-left
-	       y wd.document-element.scroll-top)
-	  wd.body.scroll-left
+           y wd.document-element.scroll-top)
+      wd.body.scroll-left
         (= x document.body.scroll-left
-	       y document.body.scroll-top)
-	  win.page-x-offset
+           y document.body.scroll-top)
+      win.page-x-offset
         (= x win.page-x-offset
-		   y win.page-y-offset))
-	(values x y w h)))
+           y win.page-y-offset))
+    (values x y w h)))
 
 (fn set-viewport (x y &optional (win window))
   (let wd win.document
     (?
-	  wd.document-element.scroll-left
+      wd.document-element.scroll-left
         (= wd.document-element.scroll-left x
-	       wd.document-element.scroll-top y)
+           wd.document-element.scroll-top y)
       wd.body.scroll-left
         (= document.body.scroll-left x
-	       document.body.scroll-top y)
-	    win.page-x-offset
+           document.body.scroll-top y)
+        win.page-x-offset
         (= win.page-x-offset x
-		   win.page-y-offset y))))
+           win.page-y-offset y))))
 
 (fn adjust-viewport (elm)
   (with ((x y w h) (get-viewport)

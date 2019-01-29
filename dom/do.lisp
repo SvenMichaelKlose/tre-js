@@ -1,6 +1,6 @@
 (defmacro do-classes ((iterator element &optional (result nil)) &body body)
   `(@ (,iterator ((slot-value ,element 'get-classes)) ,result)
-	 ,@body))
+     ,@body))
 
 (defmacro do-elements ((step iter elm &optional (ret nil)) &body body)
   `(iterate ,iter ,step ,elm ,ret
@@ -27,23 +27,23 @@
 
 (defmacro do-self-and-ancestors ((iter elm &optional (ret nil)) &body body)
   `(do-elements ((slot-value ,iter 'parent-node) ,iter ,elm ,ret)
-	 ,@body))
+     ,@body))
 
 (defmacro do-self-and-previous-siblings ((iter elm &optional (ret nil)) &body body)
   `(do-elements ((slot-value ,iter 'previous-sibling) ,iter ,elm ,ret)
-	 ,@body))
+     ,@body))
 
 (defmacro do-previous-siblings ((iter elm &optional (ret nil)) &body body)
   `(do-self-and-previous-siblings (,iter (slot-value ,elm 'previous-sibling) ,ret)
-	 ,@body))
+     ,@body))
 
 (defmacro do-self-and-next-siblings ((iter elm &optional (ret nil)) &body body)
   `(do-elements ((slot-value ,iter 'next-sibling) ,iter ,elm ,ret)
-	 ,@body))
+     ,@body))
 
 (defmacro do-next-siblings ((iter elm &optional (ret nil)) &body body)
   `(do-self-and-next-siblings (,iter (slot-value ,elm 'next-sibling) ,ret)
-	 ,@body))
+     ,@body))
 
 (defmacro do-children ((iter parent &optional (result nil)) &body body)
   `(@ (,iter (array-list (slot-value ,parent 'child-nodes)) ,result)

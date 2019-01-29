@@ -6,7 +6,7 @@
   (clr _modules
        _original-listeners
        _running?
-	   _has-selection?
+       _has-selection?
        _button-down?)
   (= _key-stats (make-array))
   (= _original-listeners (make-hash-table))
@@ -18,21 +18,21 @@
   this)
 
 (defmember event-manager
-	; x y -> use THIS manually
-	element
-	_modules
-	_running?
-	_threshold
-	_dragstart-x
-	_dragstart-y
-	_dragged-element
-	_dragging?
-	_original-listeners
-	_last-button-state
-	_last-click-shift-down?
-	_key-stats
-	_running?
-	_has-selection?
+    ; x y -> use THIS manually
+    element
+    _modules
+    _running?
+    _threshold
+    _dragstart-x
+    _dragstart-y
+    _dragged-element
+    _dragging?
+    _original-listeners
+    _last-button-state
+    _last-click-shift-down?
+    _key-stats
+    _running?
+    _has-selection?
     _button-down?)
 
 ;;;; PUBLIC
@@ -56,7 +56,7 @@
 
 (defmethod event-manager reset-pointer-info ()
   (= this.x 0
-	 this.y 0)
+     this.y 0)
   (clr element))
 
 (defmethod event-manager dragging? ()       _dragging?)
@@ -78,7 +78,7 @@
   (& (eq element obj)
      (clr element))
   (@ (i _modules)
-	(i.unhook obj)))
+    (i.unhook obj)))
 
 (defmethod event-manager fire-on-element (elm evt)
   (= evt._element elm)
@@ -117,7 +117,7 @@
   (_dochook doc *form-events* (bind-event-listener this this._generic-keyhandler))
   (_dochook doc *ignored-dragndrop-events* #'native-stop-event)
   (native-add-event-listener doc "unload" [(_generic-handler _)
-							               (_remove-event-listeners doc)]))
+                                           (_remove-event-listeners doc)]))
 
 (defmethod event-manager _externaldrop (evt)
   (evt._stop-original)
@@ -125,11 +125,11 @@
 
 (defmethod event-manager _remove-event-listeners (doc)
   (@ (i (href _original-listeners doc))
-	(native-remove-event-listener document i. .i)))
+    (native-remove-event-listener document i. .i)))
 
 (defmethod event-manager _sensible-position? (x y)
   (& x y
-  	 (not (& (zero? x) (zero? y)))))
+     (not (& (zero? x) (zero? y)))))
 
 ;;;; EVENT UTILITIES
 
@@ -141,9 +141,9 @@
   (= element (evt.element))
   (when (evt.mouse-event?)
     (with (x  (evt.pointer-x)
-		   y  (evt.pointer-y))
-	  (when (_sensible-position? x y)
-	    (_add-moved-distance-to-event evt)
+           y  (evt.pointer-y))
+      (when (_sensible-position? x y)
+        (_add-moved-distance-to-event evt)
         (= this.x x
            this.y y)))))
 
@@ -157,9 +157,9 @@
       
 (defmethod event-manager _call-handlers (evt module handlers)
   (@ (i handlers)
-	(log-events "Calling handler for ~A event/module `~A'.~%" evt.type (module.get-name))
+    (log-events "Calling handler for ~A event/module `~A'.~%" evt.type (module.get-name))
     (i.callback evt this)
-	(when evt._stop
+    (when evt._stop
       (log-events "Event stopped.~%")
       (return))))
 
@@ -176,7 +176,7 @@
 (defmethod event-manager _bubble (evt init-elm)
   (let modules (copy-list _modules)
     (when (evt.element)
-	  (loop
+      (loop
         (& (evt.element)._hooked?
            (_handle-modules evt (evt.element) modules))
         (& (| evt._stop
@@ -205,7 +205,7 @@
      _dragstart-x 0
      _dragstart-y 0)
   (clr _dragged-element
-	   _dragging?))
+       _dragging?))
 
 (defmethod event-manager _dnd-update-position (evt)
   (= _dragstart-x (evt.pointer-x)
@@ -237,26 +237,26 @@
 (defmethod event-manager _dnd-mouseup (evt)
   (clr _button-down?)
   (& _dragging?
-	 (_dispatch "caroshidrop" evt))
+     (_dispatch "caroshidrop" evt))
   (clr _dragging?
-	   _dragged-element))
+       _dragged-element))
 
 ;;;; EVENT HANDLERS
 
 (defmethod event-manager _handle-selection (evt)
   (let has-selection?  (let s (window.get-selection)
-	      				 (& (< 0 s.range-count)
-			                (let r (s.get-range-at 0)
-						      (not r.collapsed))))
+                         (& (< 0 s.range-count)
+                            (let r (s.get-range-at 0)
+                              (not r.collapsed))))
     (| (eq _has-selection? has-selection?)
-	   (_dispatch "selectionchange" evt))
+       (_dispatch "selectionchange" evt))
     (= _has-selection? has-selection?)))
 
 ;; Generic event handler.
 (defmethod event-manager _generic-handler (evt)
   (_update-global-data evt)
   (& (eql "mousemove" evt.type)
-	 (& (eql 0 evt.button)
+     (& (eql 0 evt.button)
         (_dnd-mousemove evt))
      (_handle-selection evt))
   (| (& (eql "click" evt.type)
@@ -275,12 +275,12 @@
 ;; This will introduce mouse(left|middle|right)(up|down) events.
 (defmethod event-manager _mousebutton (evt direction)
   (_dispatch (+ "mouse"
-				direction
-	       		(case evt.button
-	       		  0 "left"
-	       		  1 "middle"
-	       		  2 "right"))
-			 evt)
+                direction
+                (case evt.button
+                  0 "left"
+                  1 "middle"
+                  2 "right"))
+             evt)
   (_dispatch (+ "mouse" direction) evt)
   (= _last-button-state evt.button)
   t)
@@ -288,12 +288,12 @@
 (defmethod event-manager _mousedown (evt)
   (= _last-click-shift-down? (shift-down?))
   (& (zero? evt.button)
-	 (_dnd-mousedown evt))
+     (_dnd-mousedown evt))
   (_mousebutton evt "down"))
 
 (defmethod event-manager _mouseup (evt)
   (& (zero? evt.button)
-	 (_dnd-mouseup evt))
+     (_dnd-mouseup evt))
   (_mousebutton evt "up"))
 
 (finalize-class event-manager)

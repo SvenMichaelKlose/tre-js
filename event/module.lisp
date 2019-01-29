@@ -4,14 +4,14 @@
 (defclass event-module (name)
   (log-events "New event module `~A'.~%" name)
   (= _name     name
-	 _handlers nil
-	 _killed?  nil)
+     _handlers nil
+     _killed?  nil)
   this)
 
 (defmember event-module
-	_name
-	_handlers
-	_killed?)
+    _name
+    _handlers
+    _killed?)
 
 (defmethod event-module get-name ()      _name)
 (defmethod event-module set-name (name)  (= _name name))
@@ -29,7 +29,7 @@
 (defmethod event-module hook (types callback-fun elm)
   (assert (function? callback-fun) "callback is not a function")
   (when elm
-	(= elm._hooked? t))
+    (= elm._hooked? t))
   (@ (i (ensure-list types) elm)
     (log-events "Module ~A will catch ~A events.~%" _name i)
     (_hook-type i callback-fun elm)))
@@ -37,17 +37,17 @@
 (defmethod event-module _unhook-0 (obj)
  (= _handlers (remove-if [?
                            (function? obj)  (_.has-callback obj)
-			               (element? obj)   (_.has-element obj)
-			               (string? obj)    (_.has-type obj)]
+                           (element? obj)   (_.has-element obj)
+                           (string? obj)    (_.has-type obj)]
                          _handlers)))
 
 (defmethod event-module unhook (obj)
   (?
     (cons? obj)           (@ (i obj)
-	                        (unhook i))
+                            (unhook i))
     (& (element? obj)
        obj._hooked?)      (_unhook-0 obj)
-	(not (comment? obj))  (_unhook-0 obj)))
+    (not (comment? obj))  (_unhook-0 obj)))
 
 (defmethod event-module close ())
 

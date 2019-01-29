@@ -26,15 +26,15 @@
   (let to this
     (dolist (i (ensure-list new-elm))
       (!? to.next-sibling
-	      (!.add-before i)
+          (!.add-before i)
           (parent-node.add i))
       (= to i)))
   new-elm)
 
 (defmethod visible-node insert-next-to (new-elm after?)
   (? after?
-	 (add-after new-elm)
-	 (add-before new-elm)))
+     (add-after new-elm)
+     (add-before new-elm)))
 
 (defmethod visible-node walk (fun)
   (declare type function fun)
@@ -47,7 +47,7 @@
 
 (defmethod visible-node remove ()
   (& (element? this)
-	 (this.remove-children))
+     (this.remove-children))
   (@ (i _unhooks)
     (funcall i this))
   (remove-without-listeners)
@@ -55,27 +55,27 @@
 
 (defmethod visible-node self-and-next ()
   (do ((arr (make-array))
-	   (x this x.next-sibling))
-	  ((not x) arr)
-	(arr.push x)))
+       (x this x.next-sibling))
+      ((not x) arr)
+    (arr.push x)))
 
 (defmethod visible-node remove-self-and-next ()
   (doarray (i (self-and-next))
-	(i.remove)))
+    (i.remove)))
 
 (defmethod visible-node split-before ()
-  (with (div		parent-node
-   		 new-elm	(div.clone nil))
-	(new-elm.add-array (clone-element-array (self-and-next)))
+  (with (div        parent-node
+         new-elm    (div.clone nil))
+    (new-elm.add-array (clone-element-array (self-and-next)))
     (remove-self-and-next)
-  	(div.add-after new-elm)))
+    (div.add-after new-elm)))
 
 (defmethod visible-node split-up-unless (predicate)
   (let new-elm (split-before)
-	(? (| (not new-elm)
-		  (funcall predicate new-elm.parent-node))
-	   new-elm
-	   (new-elm.split-up-unless predicate))))
+    (? (| (not new-elm)
+          (funcall predicate new-elm.parent-node))
+       new-elm
+       (new-elm.split-up-unless predicate))))
 
 (defmethod visible-node replace-by (new-elm)
   (parent-node.replace-child new-elm this)
@@ -83,24 +83,24 @@
 
 (defmethod visible-node find-last-leaf ()
   (? (element? this)
-	 (!? this.first-child
-	      (do ((x ! x.next-sibling)
-	           (top nil))
+     (!? this.first-child
+          (do ((x ! x.next-sibling)
+               (top nil))
               ((not x) (| top this))
             (!? (x.find-last-leaf)
-	            (= top !)))
-	  this)))
+                (= top !)))
+      this)))
 
 (defmethod visible-node alone? ()
   (not (| previous-sibling next-sibling)))
 
 (defmethod visible-node get-index ()
   (with (x    this
-		 idx  0)
-	(while x.previous-sibling
-		   idx
-	  (++! idx)
-	  (= x x.previous-sibling))))
+         idx  0)
+    (while x.previous-sibling
+           idx
+      (++! idx)
+      (= x x.previous-sibling))))
 
 (defmethod visible-node update (o n)
   (& o n
