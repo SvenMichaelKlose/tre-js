@@ -1,4 +1,7 @@
-(const *mouse-events*             '("click" "dblclick" "mouseup" "mousedown" "mousemove" "mouseover" "mouseout"
+(const *mouse-events*             '("click" "dblclick"
+                                    "mouseup" "mousedown"
+                                    "mousemove"
+                                    "mouseover" "mouseout"
                                     "mouseupleft" "mouseupmiddle" "mouseupright"
                                     "mousedownleft" "mousedownmiddle" "mousedownright"))
 (const *touch-events*             '("touchdown" "touchmove" "touchup"))
@@ -10,9 +13,13 @@
 (const *other-events*             '("contextmenu" "drop" "unload"))
 
 (const *all-events* (+ *mouse-events* *touch-events* *ignored-dragndrop-events*
-                       *key-events* *form-events*
+                       *key-events*
+                       *form-events*
                        *media-events* 
                        *network-events*
                        *other-events*))
 
-(const *non-generic-events* `("mouseup" "mousedown" ,@*ignored-dragndrop-events* "drop" ,@*key-events* "unload"))
+(const *non-generic-events* `("mouseup" "mousedown"
+                              ,@*ignored-dragndrop-events* "drop"
+                              ,@*key-events*
+                              "unload"))
