@@ -5,7 +5,7 @@
   ((x.get "<table").get "tr").children.length)
 
 (fn table-num-rows (x)
-  (x.get "<table").children.length)
+  ((x.get "<table").get "tbody").children.length)
 
 (fn table-get-first-row (x)
   ((x.get "<table").get "tbody").first-child)
