@@ -14,6 +14,9 @@
   (dom-tree-extend (clone-node children?)))
 
 (defmethod visible-node remove-without-listeners ()
+  (& (element? this)
+     (this.has-attribute? "debugonremove")
+     (invoke-debugger))
   (!? parent-node
       (!.remove-child this)))
 
@@ -103,6 +106,7 @@
       (= x x.previous-sibling))))
 
 (defmethod visible-node update (o n)
+  ; TODO: Make proper.
   (& o n
      (? (o.is-equal-node n))
         (o.first-child.update n.first-child)

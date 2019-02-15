@@ -136,6 +136,9 @@
                (downcase val))))
 
 (defmethod caroshi-element write-attribute (name value)
+  (& (string== name "class")
+     (not value)
+     (invoke-debugger))
   (set-attribute name value)
   (!? (xlat-attribute name)
       (set-attribute ! value))
