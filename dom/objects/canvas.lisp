@@ -3,7 +3,7 @@
      ,@body))
 
 (fn make-canvas (&optional (attributes nil) (style nil) (type "2d"))
-  (alet (new *element "canvas" attributes style)
+  (alet (make-extended-element "canvas" attributes style)
     (with-canvas-context type ctx !
       (values ! ctx))))
 

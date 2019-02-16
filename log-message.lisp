@@ -7,20 +7,20 @@
                :fun-eof   #'((str)
                               t)))
 
-(defvar *standard-log* (make-log-stream))
+(var *standard-log* (make-log-stream))
 (= *standard-output* (make-log-stream))
 (= *standard-error* (make-log-stream))
 
-(defvar *logwindow* nil)
+(var *logwindow* nil)
 
-(defvar *terminal-css* (new :margin "0"
-                            :background  "#000"
-                            :color       "#0f0"
-                            :white-space "pre-wrap"
-                            :font-family "monospace"
-                            :font-weight "bold"))
+(var *terminal-css* (new :margin "0"
+                         :background  "#000"
+                         :color       "#0f0"
+                         :white-space "pre-wrap"
+                         :font-family "monospace"
+                         :font-weight "bold"))
  
-(defvar *log-event-module* nil)
+(var *log-event-module* nil)
 
 (fn open-log-window ()
   (unless *logwindow*
@@ -28,15 +28,15 @@
     (let doc *logwindow*.document
       (document-extend doc)
       (= doc.title "Console")
-      (doc.body.add (new *element "div"))
+      (doc.body.add (make-extended-element "div"))
       (doc.body.set-styles (hash-merge *terminal-css* (new :width "100%")))
       ,@(when *have-compiler?*
-          '((let form (new *element "form")
+          '((let form (make-extended-element "form")
               (doc.body.add form)
-              (with (txt    (new *element "textarea" nil (new :width "98%"
-                                                              :height "12em"))
-                     submit (new *element "input" (new :type "submit"
-                                                       :value "Evaluate...")))
+              (with (txt    (make-extended-element "textarea" nil {:width  "98%"
+                                                                   :height "12em"})
+                     submit (make-extended-element "input" {:type  "submit"
+                                                            :value "Evaluate..."}))
                 (form.add txt)
                 (form.add submit)
                 (*event-manager*.init-document doc)
@@ -50,8 +50,8 @@
                                           submit)))))
       (doc.body.first-child.add-text ""))))
 
-(defvar *logwindow-buffer* "")
-(defvar *logwindow-timer* nil)
+(var *logwindow-buffer* "")
+(var *logwindow-timer* nil)
 
 (fn logwindow-add-string-0 (txt)
   (open-log-window)

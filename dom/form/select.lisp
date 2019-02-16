@@ -47,7 +47,7 @@
 
 (fn form-select-add-option (x txt &optional (attrs nil))
   (with (select-element  (x.get "<select")
-         option-element  (new *element "option" attrs))
+         option-element  (make-extended-element "option" attrs))
     (option-element.add-text txt)
     (select-element.add option-element)))
 
@@ -63,7 +63,7 @@
 
 (fn form-select-add-string-list-options (select-element options)
   (when options
-    (let option-element (new *element "option")
+    (let option-element (make-extended-element "option")
       (option-element.add-text (list-string options.))
       (select-element.add option-element))
     (form-select-add-string-list-options select-element .options)))

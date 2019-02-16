@@ -19,7 +19,7 @@
      (doc.create-element-n-s ns name)
      (doc.create-element name)))
 
-(fn *element (name &optional (attrs nil) (style nil) &key (doc document) (ns nil))
+(fn make-extended-element (name &optional (attrs nil) (style nil) &key (doc document) (ns nil))
   (aprog1 (make-native-element name doc ns)
     (hash-merge ! tre-element.prototype)
     (!.write-attributes attrs)
@@ -95,7 +95,7 @@
   this)
 
 (defmethod tre-element add-element (name attrs)
-  (add (new *element name attrs)))
+  (add (make-extended-element name attrs)))
 
 (defmethod tre-element add-text (text)
   (add (new *text-node text)))

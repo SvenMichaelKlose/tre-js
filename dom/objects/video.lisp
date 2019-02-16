@@ -1,23 +1,23 @@
 (fn make-video-flash (url width height)
-  (aprog1 (new *element "object"
-                        (new :classid  "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-                             :codebase "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0"
-                             :width    width
-                             :height   height)
-                        (new :position "absolute"))
-    (!.add (new *element "param" (new :name "wmode" :value "opaque")))
-    (!.add (new *element "param" (new :name "scale" :value "exactfit")))
-    (!.add (new *element "embed" (new :src    url
-                                      :width  width
-                                      :height height
-                                      :type   "application/x-shockwave-flash"
-                                      :allowscriptaccess "sameDomain"
-                                      :allowfullscreen   "true"
-                                      :wmode "opaque"
-                                      :scale "exactfit")))))
+  (aprog1 (make-extended-element "object"
+                                 (new :classid  "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+                                      :codebase "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0"
+                                      :width    width
+                                      :height   height)
+                                 (new :position "absolute"))
+    (!.add (make-extended-element "param" (new :name "wmode" :value "opaque")))
+    (!.add (make-extended-element "param" (new :name "scale" :value "exactfit")))
+    (!.add (make-extended-element "embed" (new :src    url
+                                               :width  width
+                                               :height height
+                                               :type   "application/x-shockwave-flash"
+                                               :allowscriptaccess "sameDomain"
+                                               :allowfullscreen   "true"
+                                               :wmode "opaque"
+                                               :scale "exactfit")))))
 
 (fn make-video (&key width height (high nil) (low nil) (webm nil) (swf nil) (loop? nil) (autoplay? nil))
-  (let video (new *element "video" (new :width width :height height))
+  (let video (make-extended-element "video" (new :width width :height height))
     (when loop?
       (video.write-attribute "loop" "loop")
       (video.write-attribute "onended" "this.play();"))
@@ -33,7 +33,7 @@
            {(!? swf
                 (video.add (make-video-flash ! width height)))
             video})
-         (video.add (new *element "source" (new :src i. :type .i.)))))))
+         (video.add (make-extended-element "source" {:src i. :type .i.}))))))
 
 (fn frame-seconds (frames-per-second x)
   (/ x frames-per-second))
