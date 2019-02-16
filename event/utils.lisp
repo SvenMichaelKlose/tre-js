@@ -1,15 +1,15 @@
 (fn fire-mousemove-event ()
   (!= *event-manager*
-    (!.fire (new caroshi-event :new-type    "mousemove"
-                               :new-button  (!.last-button-state)
-                               :x           !.x
-                               :y           !.y))))
+    (!.fire (new tre-event :new-type    "mousemove"
+                           :new-button  (!.last-button-state)
+                           :x           !.x
+                           :y           !.y))))
 
 (fn fire-document-modified-event (elm)
-  (*event-manager*.fire-on-element elm (new caroshi-event :new-type "document-modified")))
+  (*event-manager*.fire-on-element elm (new tre-event :new-type "document-modified")))
 
 (fn fire-text-modified-event (elm)
-  (*event-manager*.fire-on-element elm (new caroshi-event :new-type "text-modified")))
+  (*event-manager*.fire-on-element elm (new tre-event :new-type "text-modified")))
 
 (fn force-mousemove-event ()
   (do-wait 1

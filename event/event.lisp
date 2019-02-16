@@ -1,4 +1,4 @@
-(defclass caroshi-event (&key (native-event nil) (new-type nil) (new-button nil) (x nil) (y nil))
+(defclass tre-event (&key (native-event nil) (new-type nil) (new-button nil) (x nil) (y nil))
   (clr _x _y _stop)
   (= _send-natively? t)
   (!? native-event (_copy-native-event-data !))
@@ -8,7 +8,7 @@
   (!? new-button (= button !))
   this)
 
-(defmember caroshi-event
+(defmember tre-event
     _native-event
     type
     _x
@@ -21,7 +21,7 @@
     _stop
     _send-natively?)
 
-(defmethod caroshi-event _copy-native-event-data (evt)
+(defmethod tre-event _copy-native-event-data (evt)
   (= _native-event evt
      type          evt.type
      _element      (dom-extend evt.target)
@@ -41,42 +41,43 @@
     (= data-transfer evt.data-transfer))
   this)
 
-(defmethod caroshi-event mouse-event? ()
+(defmethod tre-event mouse-event? ()
   (find type '("mousedown" "mouseup" "mousemove" "mouseover")))
 
-(defmethod caroshi-event left-button? ()   (== 0 button))
-(defmethod caroshi-event middle-button? () (== 1 button))
-(defmethod caroshi-event right-button? ()  (== 2 button))
+(defmethod tre-event left-button? ()   (== 0 button))
+(defmethod tre-event middle-button? () (== 1 button))
+(defmethod tre-event right-button? ()  (== 2 button))
 
-(defmethod caroshi-event pointer-x () _x)
-(defmethod caroshi-event pointer-y () _y)
-(defmethod caroshi-event element ()   _element)
+(defmethod tre-event pointer-x () _x)
+(defmethod tre-event pointer-y () _y)
+(defmethod tre-event element ()   _element)
 
-(defmethod caroshi-event set-element (x)
+(defmethod tre-event set-element (x)
   (= _element x))
 
-(defmethod caroshi-event relative-pointer ()
+(defmethod tre-event relative-pointer ()
   (with (x _x
          y _y)
     (iterate e e.offset-parent _element (values x y)
       (= x (- x e.offset-left))
       (= y (- y e.offset-top)))))
 
-(defmethod caroshi-event bubble ()
+;; TODO: Rename to _BUBBLE.
+(defmethod tre-event bubble ()
   (awhen _element
     (unless (| (not (element? !))
                (eql "BODY" !.tag-name))
       (= _element !.parent-node))))
 
-(defmethod caroshi-event discard ()
+(defmethod tre-event discard ()
   (= _stop t))
 
 ;; For the EVENT-MANAGER only.
-(defmethod caroshi-event _stop-original ()
+(defmethod tre-event _stop-original ()
   (!? _native-event
       (native-stop-event !)))
 
-(defmethod caroshi-event send-natively (x)
+(defmethod tre-event send-natively (x)
   (= _send-natively? x))
 
-(finalize-class caroshi-event)
+(finalize-class tre-event)

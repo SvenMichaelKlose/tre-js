@@ -1,9 +1,9 @@
 (fn element-extend (x)
-  (hash-merge x caroshi-element.prototype))
+  (hash-merge x tre-element.prototype))
 
 (fn dom-extend (x)
   (pcase x
-    document? (hash-merge x caroshi-html-document.prototype)
+    document? (hash-merge x tre-html-document.prototype)
     element?  (element-extend x)
     text?     (hash-merge x *text-node.prototype)))
 

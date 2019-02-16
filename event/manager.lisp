@@ -1,6 +1,6 @@
 (fn bind-event-listener (obj fun)
   (assert (function? fun) "BIND-EVENT-LISTENER requires a function")
-  [applymethod obj fun (new caroshi-event :native-event _)])
+  [applymethod obj fun (new tre-event :native-event _)])
 
 (defclass event-manager ()
   (clr _modules
@@ -220,7 +220,7 @@
 (defmethod event-manager _dnd-start (evt)
   (= _dragging? t)
   (evt.set-element _dragged-element)
-  (_dispatch "caroshidragstart" evt))
+  (_dispatch "tredragstart" evt))
 
 (defmethod event-manager _dnd-past-threshold? (evt)
   (< (distance (evt.pointer-x) (evt.pointer-y) _dragstart-x _dragstart-y)
@@ -229,7 +229,7 @@
 (defmethod event-manager _dnd-mousemove (evt)
   (?
     (not _dragged-element)     nil
-    _dragging?                 (_dispatch "caroshidrag" evt)
+    _dragging?                 (_dispatch "tredrag" evt)
     (_dnd-past-threshold? evt) nil
     (_dnd-start evt)))
 
@@ -237,7 +237,7 @@
 (defmethod event-manager _dnd-mouseup (evt)
   (clr _button-down?)
   (& _dragging?
-     (_dispatch "caroshidrop" evt))
+     (_dispatch "tredrop" evt))
   (clr _dragging?
        _dragged-element))
 
