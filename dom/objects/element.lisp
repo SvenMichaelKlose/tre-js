@@ -172,7 +172,10 @@
     (set-class (+ (get-class) " " x))))
 
 (fn tre-remove-class (elm x)
-  (elm.set-class (apply #'string-concat (pad (remove x (elm.get-classes) :test #'string==) " "))))
+  (!= (apply #'string-concat (pad (remove x (elm.get-classes) :test #'string==) " "))
+    (? (empty-string? !)
+       (elm.remove-attribute "class")
+       (elm.set-class !))))
 
 (defmethod tre-element remove-class (x)
   (tre-remove-class this x))
