@@ -67,12 +67,9 @@
 (fn logwindow-add-string (txt)
   (unless *logwindow-timer*
     (= *logwindow-timer* (window.set-interval #'logwindow-timer 100)))
-  (= *logwindow-buffer* (+ *logwindow-buffer* txt))
+  (= *logwindow-buffer* (string-concat *logwindow-buffer* txt))
   txt)
 
-,(? *transpiler-log*
-   `(fn log-message (txt)
-      (logwindow-add-string (+ txt (string (code-char 10))))
-      txt)
-   '(defmacro log-message (txt)
-      txt))
+(fn log-message (txt)
+  (logwindow-add-string (string-concat txt *terpri*))
+  txt)
