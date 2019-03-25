@@ -1,11 +1,11 @@
 (fn element-extend (x)
-  (hash-merge x tre-element.prototype))
+  (js-merge-props! x tre-element.prototype))
 
 (fn dom-extend (x)
   (pcase x
-    document? (hash-merge x tre-html-document.prototype)
+    document? (js-merge-props! x tre-html-document.prototype)
     element?  (element-extend x)
-    text?     (hash-merge x *text-node.prototype)))
+    text?     (js-merge-props! x *text-node.prototype)))
 
 (fn dom-tree-extend (root)
   (!? root

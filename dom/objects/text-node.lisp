@@ -1,6 +1,6 @@
 (defclass (*text-node visible-node) (text &key (doc document))
   (let x (doc.create-text-node text)
-    (hash-merge x *text-node.prototype)
+    (js-merge-props! x *text-node.prototype)
     x))
 
 (defmethod *text-node blank? ()

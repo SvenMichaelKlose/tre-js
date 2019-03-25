@@ -13,12 +13,13 @@
 
 (var *logwindow* nil)
 
-(var *terminal-css* (new :margin "0"
-                         :background  "#000"
-                         :color       "#0f0"
-                         :white-space "pre-wrap"
-                         :font-family "monospace"
-                         :font-weight "bold"))
+(var *terminal-css* {:margin       "0"
+                     :background   "#000"
+                     :color        "#0f0"
+                     :white-space  "pre-wrap"
+                     :font-family  "monospace"
+                     :font-weight  "bold"
+                     :width        "100%"})
  
 (var *log-event-module* nil)
 
@@ -29,7 +30,7 @@
       (document-extend doc)
       (= doc.title "Console")
       (doc.body.add (make-extended-element "div"))
-      (doc.body.set-styles (hash-merge *terminal-css* (new :width "100%")))
+      (doc.body.set-styles *terminal-css*)
       ,@(when *have-compiler?*
           '((let form (make-extended-element "form")
               (doc.body.add form)
@@ -56,7 +57,7 @@
 (fn logwindow-add-string-0 (txt)
   (open-log-window)
   (*logwindow*.document.body.first-child.add-text txt)
-  (*logwindow*.scroll-to 0 (%%native 100000))
+  (*logwindow*.scroll-to 0 (%%native 100000))   ; TODO: Remove %%NATIVE.
   txt)
 
 (fn logwindow-timer ()

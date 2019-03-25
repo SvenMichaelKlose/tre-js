@@ -21,7 +21,7 @@
 
 (fn make-extended-element (name &optional (attrs nil) (style nil) &key (doc document) (ns nil))
   (aprog1 (make-native-element name doc ns)
-    (hash-merge ! tre-element.prototype)
+    (js-merge-props! ! tre-element.prototype)
     (!.write-attributes attrs)
     (!.set-styles style)))
 
