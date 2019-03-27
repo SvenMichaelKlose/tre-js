@@ -1,11 +1,8 @@
 (fn make-log-stream ()
-  (make-stream :fun-in    #'((str))
-               :fun-out   #'((c str)
-                              (logwindow-add-string (? (string? c)
-                                                       c
-                                                       (char-string c))))
-               :fun-eof   #'((str)
-                              t)))
+  (make-stream :fun-in   []
+               :fun-out  #'((c str)
+                             (logwindow-add-string (? (string? c) c (char-string c))))
+               :fun-eof  [identity t]))
 
 (var *standard-log* (make-log-stream))
 (= *standard-output* (make-log-stream))
@@ -54,23 +51,18 @@
 (var *logwindow-buffer* "")
 (var *logwindow-timer* nil)
 
-(fn logwindow-add-string-0 (txt)
-  (open-log-window)
-  (*logwindow*.document.body.first-child.add-text txt)
-  (*logwindow*.scroll-to 0 (%%native 100000))   ; TODO: Remove %%NATIVE.
-  txt)
-
 (fn logwindow-timer ()
   (unless (empty-string? *logwindow-buffer*)
-    (logwindow-add-string-0 *logwindow-buffer*)
+    (open-log-window)
+    (*logwindow*.document.body.first-child.add-text *logwindow-buffer*)
+    (*logwindow*.scroll-to 0 document.body.scroll-height)
     (= *logwindow-buffer* "")))
 
-(fn logwindow-add-string (txt)
+(fn logwindow-add-string (x)
   (unless *logwindow-timer*
     (= *logwindow-timer* (window.set-interval #'logwindow-timer 100)))
-  (= *logwindow-buffer* (string-concat *logwindow-buffer* txt))
-  txt)
+  (= *logwindow-buffer* (string-concat *logwindow-buffer* x)))
 
-(fn log-message (txt)
-  (logwindow-add-string (string-concat txt *terpri*))
-  txt)
+(fn log-message (x)
+  (logwindow-add-string (string-concat x *terpri*))
+  x)
