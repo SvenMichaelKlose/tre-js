@@ -45,24 +45,13 @@
                                              (@ (i (read-all s))
                                                (princ "* ")
                                                (print (eval (print i)))))]
-                                          submit)))))
-      (doc.body.first-child.add-text ""))))
-
-(var *logwindow-buffer* "")
-(var *logwindow-timer* nil)
-
-(fn logwindow-timer ()
-  (unless (empty-string? *logwindow-buffer*)
-    (open-log-window)
-    (*logwindow*.document.body.first-child.add-text *logwindow-buffer*)
-    (*logwindow*.scroll-to 0 document.body.scroll-height)
-    (= *logwindow-buffer* "")))
+                                          submit))))))))
 
 (fn logwindow-add-string (x)
-  (unless *logwindow-timer*
-    (= *logwindow-timer* (window.set-interval #'logwindow-timer 100)))
-  (= *logwindow-buffer* (string-concat *logwindow-buffer* x)))
+  (open-log-window)
+  (*logwindow*.document.body.first-child.add-text x)
+  (*logwindow*.scroll-to 0 document.body.scroll-height))
 
 (fn log-message (x)
-  (logwindow-add-string (string-concat x *terpri*))
+  (logwindow-add-string (+ x *terpri*))
   x)

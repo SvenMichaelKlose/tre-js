@@ -1,0 +1,3 @@
+Changes relative to js-0.1:
+  * Log window does not use a timer anymore.  Must have been some
+    workaround from the last decade.
