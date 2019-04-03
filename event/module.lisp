@@ -54,9 +54,9 @@
 (defmethod event-module kill ()
   (*event-manager*.kill this))
 
-(mapcar-macro _ *all-events*
-  `(defmethod event-module ,(make-symbol (upcase _)) (fun elm)
-     (this.hook ,_ fun elm)))
+{,@(@ [`(defmethod event-module ,(make-symbol (upcase _)) (fun elm)
+          (this.hook ,_ fun elm))]
+      *all-events*)}
 
 (finalize-class event-module)
 

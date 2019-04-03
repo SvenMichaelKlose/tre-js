@@ -364,8 +364,8 @@
        (& (element? i)
           (return nil)))))
 
-(mapcar-macro _ (remove "focus" *all-events*) ; TODO: Prefix names instead?
-  `(defmethod tre-element ,(make-symbol (upcase _)) (fun)
-     (*event-module*.hook ,_ fun this)))
+{,@(@ [`(defmethod tre-element ,(make-symbol (upcase _)) (fun)
+          (*event-module*.hook ,_ fun this))]
+      (remove "focus" *all-events*))}   ; TODO: Prefix names instead?
 
 (finalize-class tre-element)
