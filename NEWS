@@ -1,4 +1,5 @@
 Changes relative to js-0.1:
+  * DETECT-LANGUAGE returns country code in keyword package.
   * Obfuscation exceptions have been removed.  tré does not
     identifier obfuscation anymore.
   * MILLISECONDS-SINCE-1970 moved to tré.
