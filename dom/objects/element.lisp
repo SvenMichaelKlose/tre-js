@@ -184,7 +184,7 @@
 
 (defmethod tre-element remove-classes (x)
   (@ (i x)
-    (remove-class !)))
+    (remove-class i)))
 
 (defmethod tre-element set-id (id)
   (? id
