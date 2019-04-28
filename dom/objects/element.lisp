@@ -168,8 +168,10 @@
 (defmethod tre-element set-class (x)   (write-attribute "class" x))
 
 (defmethod tre-element add-class (x)
-  (unless (class? x)
-    (set-class (+ (get-class) " " x))))
+  (& x
+     (unless (class? x)
+       (set-class (+ (get-class) " " x))))
+  x)
 
 (fn tre-remove-class (elm x)
   (!= (apply #'string-concat (pad (remove x (elm.get-classes) :test #'string==) " "))
