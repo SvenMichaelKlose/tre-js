@@ -3,3 +3,4 @@ Changes relative to js-0.1:
   * Obfuscation exceptions have been removed.  tré does not
     identifier obfuscation anymore.
   * MILLISECONDS-SINCE-1970 moved to tré.
+  * TRE-ELEMENT.REMOVE-CLASSES added.
