@@ -182,6 +182,10 @@
 (defmethod tre-element remove-class (x)
   (tre-remove-class this x))
 
+(defmethod tre-element remove-classes (x)
+  (@ (i x)
+    (remove-class !)))
+
 (defmethod tre-element set-id (id)
   (? id
      (write-attribute "id" id)
