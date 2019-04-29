@@ -4,3 +4,4 @@ Changes relative to js-0.1:
     identifier obfuscation anymore.
   * MILLISECONDS-SINCE-1970 moved to tré.
   * TRE-ELEMENT.REMOVE-CLASSES added.
+  * Elements are unhooked from their EVENT-MODULE correctly.
