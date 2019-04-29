@@ -136,10 +136,6 @@
                (downcase val))))
 
 (defmethod tre-element write-attribute (name value)
-  (& (string== name "class")
-     (| (not value)
-        (eql "null" value))
-     (invoke-debugger))
   (set-attribute name value)
   (!? (xlat-attribute name)
       (set-attribute ! value))
@@ -165,18 +161,17 @@
 (defmethod tre-element set-name (x)    (write-attribute "name" x))
 (defmethod tre-element get-class ()    (read-attribute "class"))
 (defmethod tre-element get-classes ()  (split #\  (get-class) :test #'character==))
-(defmethod tre-element class? (x)      (find x (get-classes) :test #'string==))
+(defmethod tre-element class? (x)      (member x (get-classes) :test #'string==))
 (defmethod tre-element set-class (x)   (write-attribute "class" x))
 
 (defmethod tre-element add-class (x)
-  (assert (not (eql "null" x)) "\"null\" shouldn't be a class.")
   (& x
      (unless (class? x)
        (set-class (+ (get-class) " " x))))
   x)
 
 (fn tre-remove-class (elm x)
-  (!= (apply #'string-concat (pad (remove x (remove "null" (elm.get-classes)) :test #'string==) " "))
+  (!= (apply #'string-concat (pad (remove x (elm.get-classes) :test #'string==) " "))
     (? (empty-string? !)
        (elm.remove-attribute "class")
        (elm.set-class !))))
