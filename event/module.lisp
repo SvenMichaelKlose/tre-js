@@ -22,9 +22,7 @@
          handler  (new _event-handler (? (undefined? elm) nil elm) type callback-fun))
     (push handler _handlers)
     (when elm
-      (push #'(()
-                 (= _handlers (remove-if [_.has-element elm] _handlers)))
-            elm._unhooks))))
+      (push [unhook _] elm._unhooks))))
 
 (defmethod event-module hook (types callback-fun elm)
   (assert (function? callback-fun) "callback is not a function")
