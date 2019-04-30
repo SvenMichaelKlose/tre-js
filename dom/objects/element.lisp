@@ -32,6 +32,8 @@
     attributes
     child-nodes
     children
+    class-name
+    class-list
     first-child
     set-attribute get-attribute remove-attribute
     get-elements-by-class-name
@@ -159,29 +161,20 @@
 
 (defmethod tre-element get-name ()     (read-attribute "name"))
 (defmethod tre-element set-name (x)    (write-attribute "name" x))
-(defmethod tre-element get-class ()    (read-attribute "class"))
-(defmethod tre-element get-classes ()  (split #\  (get-class) :test #'character==))
-(defmethod tre-element class? (x)      (member x (get-classes) :test #'string==))
-(defmethod tre-element set-class (x)   (write-attribute "class" x))
+(defmethod tre-element get-class ()    class-name)
+(defmethod tre-element get-classes ()  (split #\  class-name :test #'character==))
+(defmethod tre-element class? (x)      (class-list.contains x))
+(defmethod tre-element set-class (x)   (= class-name x))
 
 (defmethod tre-element add-class (x)
-  (& x
-     (unless (class? x)
-       (set-class (+ (get-class) " " x))))
-  x)
-
-(fn tre-remove-class (elm x)
-  (!= (apply #'string-concat (pad (remove x (elm.get-classes) :test #'string==) " "))
-    (? (empty-string? !)
-       (elm.remove-attribute "class")
-       (elm.set-class !))))
+  (class-list.add x))
 
 (defmethod tre-element remove-class (x)
-  (tre-remove-class this x))
+  (class-list.remove x))
 
 (defmethod tre-element remove-classes (x)
   (@ (i x)
-    (remove-class i)))
+    (class-list.remove i)))
 
 (defmethod tre-element set-id (id)
   (? id
