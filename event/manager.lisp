@@ -106,7 +106,10 @@
 
 (defmethod event-manager init-document (doc)
   (set-send-natively-by-default? doc t)
-  (let exclusions `("mouseup" "mousedown" ,@(copy-list *ignored-dragndrop-events*) "drop" ,@(copy-list *key-events*) "unload")
+  (let exclusions `("mouseup" "mousedown"
+                    ,@(copy-list *ignored-dragndrop-events*) "drop"
+                    ,@(copy-list *key-events*)
+                    "unload")
     (_dochook doc (remove-if [member _ exclusions :test #'string==] *all-events*)
               (bind-event-listener this this._generic-handler)))
 
@@ -244,10 +247,9 @@
 ;;;; EVENT HANDLERS
 
 (defmethod event-manager _handle-selection (evt)
-  (let has-selection?  (let s (window.get-selection)
-                         (& (< 0 s.range-count)
-                            (let r (s.get-range-at 0)
-                              (not r.collapsed))))
+  (let has-selection? (!= (window.get-selection)
+                        (& (< 0 !.range-count)
+                           (not (!.get-range-at 0).collapsed)))
     (| (eq _has-selection? has-selection?)
        (_dispatch "selectionchange" evt))
     (= _has-selection? has-selection?)))
