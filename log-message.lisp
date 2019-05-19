@@ -26,7 +26,7 @@
     (let doc *logwindow*.document
       (document-extend doc)
       (= doc.title "Console")
-      (doc.body.add (make-extended-element "div"))
+      (doc.body.add (make-extended-element "pre"))
       (doc.body.set-styles *terminal-css*)
       ,@(when *have-compiler?*
           '((let form (make-extended-element "form")
