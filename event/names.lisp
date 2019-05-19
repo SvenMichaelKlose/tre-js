@@ -4,7 +4,7 @@
                                     "mouseover" "mouseout"
                                     "mouseupleft" "mouseupmiddle" "mouseupright"
                                     "mousedownleft" "mousedownmiddle" "mousedownright"))
-(const *touch-events*             '("touchdown" "touchmove" "touchup"))
+(const *touch-events*             '("touchstart" "tochend" "touchmove" "touchcancel"))
 (const *ignored-dragndrop-events* '("dragenter" "dragover"))
 (const *key-events*               '("keypress" "keydown" "keyup"))
 (const *form-events*              '("submit" "change" "input" "focus" "blur"))
