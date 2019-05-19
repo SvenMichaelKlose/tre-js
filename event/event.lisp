@@ -32,11 +32,11 @@
   (with (docelm document.document-element
          body   document.body)
     (= _x (| evt.page-x
-             (number+ evt.client-x (- (| docelm.scroll-left body.scroll-left)
+             (number+ evt.client-x (- (| docelm.scroll-left body.scroll-left 0)
                                       (| docelm.client-left 0)))))
     (= _y (| evt.page-y
-             (number+ evt.client-y (- (| docelm.scroll-top body.scroll-top)
-                                         (| docelm.client-top 0))))))
+             (number+ evt.client-y (- (| docelm.scroll-top body.scroll-top 0)
+                                      (| docelm.client-top 0))))))
   (when (defined? evt.data-transfer)
     (= data-transfer evt.data-transfer))
   this)
