@@ -124,13 +124,13 @@
                            a.node-name)
                         a.node-value)))))
 
-(defmethod tre-element has-attribute? (name)
+(defmethod tre-element attr? (name)
   (doarray (a attributes)
     (& (string== a.node-name name)
        (return t))))
 
 (defmethod tre-element attribute-value? (name val)
-  (& (has-attribute? name)
+  (& (attr? name)
      (string== (downcase (read-attribute name))
                (downcase val))))
 
@@ -148,6 +148,11 @@
      (@ (i attrs)
        (write-attribute i. .i)))
   attrs)
+
+(defmethod tre-element attr (name value)
+  (? value
+     (write-attribute name value)
+     (read-attribute name)))
 
 (defmethod tre-element has-name? (x)
   (member (downcase (get-name)) (@ #'downcase (ensure-list x)) :test #'string==))

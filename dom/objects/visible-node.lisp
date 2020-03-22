@@ -15,7 +15,7 @@
 
 (defmethod visible-node remove-without-listeners ()
   (& (element? this)
-     (this.has-attribute? "debugonremove")
+     (this.attr? "debugonremove")
      (invoke-debugger))
   (!? parent-node
       (!.remove-child this)))

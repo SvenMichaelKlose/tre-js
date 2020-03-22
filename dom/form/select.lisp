@@ -43,7 +43,7 @@
 
 (fn form-select-get-selected-option-value (x)
   (let-when o (form-select-get-selected-option x)
-    (o.read-attribute "value")))
+    (o.attr "value")))
 
 (fn form-select-add-option (x txt &optional (attrs nil))
   (with (select-element  (x.get "<select")
