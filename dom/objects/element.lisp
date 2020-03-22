@@ -221,8 +221,8 @@
 (defmethod tre-element set-rotation (x)
   (alet (mod x 360)
     (= _tre-rotation x)
-    (@ (i '("" "-webkit-" "-moz-" "-o-") x)
-      (set-style (+ i "transform") (+ "rotate(" ! "deg)")))))
+    (@ (i '("" "webkit" "moz" "o") x)
+      (set-style (+ "-" i "-transform") (+ "rotate(" ! "deg)")))))
 
 (defmethod tre-element get-rotation ()
   _tre-rotation)
