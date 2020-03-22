@@ -65,19 +65,16 @@
   (do-children (x this this)
     (x.remove-without-listeners)))
 
-(defmethod tre-element add (child)
-  (& child
-     (append-child child))
+(defmethod tre-element add (x)
+  (?
+    (cons? x)
+      (dolist (i x this)
+        (add i))
+    (array? x)
+      (doarray (i x this)
+        (add i))
+    (append-child x))
   this)
-
-(defmethod tre-element add-array (x)
-  (assert (array? x) "add-arraxy: array expected")
-  (doarray (i x this)
-    (add i)))
-
-(defmethod tre-element add-list (x)
-  (@ (i x this)
-    (add i)))
 
 (defmethod tre-element add-front (child)
   (& child

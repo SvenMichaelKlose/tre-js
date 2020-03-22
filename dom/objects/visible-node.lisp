@@ -69,7 +69,7 @@
 (defmethod visible-node split-before ()
   (with (div        parent-node
          new-elm    (div.clone nil))
-    (new-elm.add-array (clone-element-array (self-and-next)))
+    (new-elm.add (clone-element-array (self-and-next)))
     (remove-self-and-next)
     (div.add-after new-elm)))
 

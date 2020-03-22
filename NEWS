@@ -5,3 +5,5 @@ Changes relative to js-0.1:
   * MILLISECONDS-SINCE-1970 moved to tré.
   * TRE-ELEMENT.REMOVE-CLASSES added.
   * Elements are unhooked from their EVENT-MODULE correctly.
+  * CAROSHI-ELEMENRT:
+  ** merged methods ADD-ARRAY and ADD-LIST into ADD.
