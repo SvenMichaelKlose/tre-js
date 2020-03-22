@@ -149,10 +149,6 @@
        (write-attribute i. .i)))
   attrs)
 
-(defmethod tre-element remove-attributes (attrs)
-  (@ (i attrs)
-    (remove-attribute i)))
-
 (defmethod tre-element has-name? (x)
   (member (downcase (get-name)) (@ #'downcase (ensure-list x)) :test #'string==))
 

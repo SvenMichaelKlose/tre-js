@@ -7,3 +7,4 @@ Changes relative to js-0.1:
   * Elements are unhooked from their EVENT-MODULE correctly.
   * CAROSHI-ELEMENRT:
   ** merged methods ADD-ARRAY and ADD-LIST into ADD.
+  ** Removed unused READ-ATTRIBUTES.
