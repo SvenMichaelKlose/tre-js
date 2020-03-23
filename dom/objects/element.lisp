@@ -358,8 +358,9 @@
        (& (element? i)
           (return nil)))))
 
-{,@(@ [`(defmethod tre-element ,(make-symbol (upcase _)) (fun)
-          (*event-module*.hook ,_ fun this))]
-      (remove "focus" *all-events*))}   ; TODO: Prefix names instead?
+(progn
+  ,@(@ [`(defmethod tre-element ,(make-symbol (upcase _)) (fun)
+           (*event-module*.hook ,_ fun this))]
+       (remove "focus" *all-events*)))   ; TODO: Prefix names instead?
 
 (finalize-class tre-element)

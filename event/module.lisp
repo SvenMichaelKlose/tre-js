@@ -52,9 +52,10 @@
 (defmethod event-module kill ()
   (*event-manager*.kill this))
 
-{,@(@ [`(defmethod event-module ,(make-symbol (upcase _)) (fun elm)
-          (this.hook ,_ fun elm))]
-      *all-events*)}
+(progn
+  ,@(@ [`(defmethod event-module ,(make-symbol (upcase _)) (fun elm)
+           (this.hook ,_ fun elm))]
+       *all-events*))
 
 (finalize-class event-module)
 
