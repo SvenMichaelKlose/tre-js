@@ -3,8 +3,9 @@
      (& (object? x)
         (string== ,(string type) x.node-type))))
 
-{,@(@ [`(define-dom-node-predicate ,_. ,._.)]
-      '((element 1)
-        (text 3)
-        (comment 8)
-        (document 9)))}
+(progn
+  ,@(@ [`(define-dom-node-predicate ,_. ,._.)]
+       '((element 1)
+         (text 3)
+         (comment 8)
+         (document 9))))
