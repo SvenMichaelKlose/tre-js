@@ -8,7 +8,7 @@
        _running?
        _has-selection?
        _button-down?)
-  (= _key-stats (make-array))
+  (= _key-stats #())
   (= _original-listeners (make-hash-table))
 
   (reset-pointer-info)

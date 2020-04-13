@@ -233,14 +233,14 @@
 
 (defmethod tre-element cumulative-offset ()
   (? (eql this.style.position "absolute")
-     (make-array (alet this.style.left
-                   (integer (subseq ! 0 (- (length !) 2))))
-                 (alet this.style.top
-                   (integer (subseq ! 0 (- (length !) 2)))))
+     #((!= this.style.left
+         (integer (subseq ! 0 (- (length !) 2))))
+       (!= this.style.top
+         (integer (subseq ! 0 (- (length !) 2)))))
      (do ((x 0)
           (y 0)
           (i this i.offset-parent))
-         ((not i) (make-array x y))
+         ((not i) #(x y))
        (+! x i.offset-left)
        (+! y i.offset-top))))
 

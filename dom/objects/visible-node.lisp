@@ -1,3 +1,8 @@
+(fn clone-element-array (x)
+  (!= #()
+    (doarray (i x !)
+      (!.push (i.clone t)))))
+
 (defclass visible-node ())
 
 (defmember visible-node
@@ -57,7 +62,7 @@
   this)
 
 (defmethod visible-node self-and-next ()
-  (do ((arr (make-array))
+  (do ((arr #())
        (x this x.next-sibling))
       ((not x) arr)
     (arr.push x)))
