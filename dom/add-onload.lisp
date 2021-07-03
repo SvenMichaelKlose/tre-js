@@ -1,4 +1,4 @@
-(fn add-onload (fun)
-  (alet window.onload
-    (= window.onload [(& ! (funcall !))
-                      (funcall fun)])))
+(fn add-onload fun
+  (!= (| onload #'(()))
+    (= onload [(funcall !)
+               (funcall fun)])))
