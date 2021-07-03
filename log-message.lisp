@@ -8,10 +8,6 @@
 (= *standard-output* (make-log-stream))
 (= *standard-error* (make-log-stream))
 
-(fn logwindow-add-string (x)
-  (console.log x)
-  x)
-
 (fn log-message (x)
-  (logwindow-add-string (+ x *terpri*))
+  (console.log x)
   x)
