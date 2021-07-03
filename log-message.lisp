@@ -1,7 +1,7 @@
 (fn make-log-stream ()
   (make-stream :fun-in   []
                :fun-out  #'((c str)
-                             (logwindow-add-string (? (string? c) c (char-string c))))
+                             (log-message (? (string? c) c (char-string c))))
                :fun-eof  [identity t]))
 
 (var *standard-log* (make-log-stream))

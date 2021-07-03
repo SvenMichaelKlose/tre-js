@@ -3,11 +3,9 @@
 (const *mouse-events*             '("click" "dblclick"
                                     "mouseup" "mousedown"
                                     "mousemove"
-                                    "mouseover" "mouseout"
-                                    "mouseupleft" "mouseupmiddle" "mouseupright"
-                                    "mousedownleft" "mousedownmiddle" "mousedownright"))
+                                    "mouseover" "mouseout"))
 (const *touch-events*             '("touchstart" "tochend" "touchmove" "touchcancel"))
-(const *ignored-dragndrop-events* '("dragenter" "dragover"))
+(const *ignored-dragndrop-events* '("dragenter" "dragstart" "dragover"))
 (const *key-events*               '("keypress" "keydown" "keyup"))
 (const *form-events*              '("submit" "change" "input" "focus" "blur"))
 (const *media-events*             '("play" "ended"))
