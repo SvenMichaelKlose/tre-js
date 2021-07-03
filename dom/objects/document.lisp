@@ -45,4 +45,9 @@
          style  (make-extended-element "style" (new "type" "text/css") nil :doc this))
     (head.add (style.add-text txt))))
 
+(progn
+  ,@(@ [`(defmethod tre-html-document ,(make-symbol (upcase _)) (fun)
+           (this.add-event-listener ,_ fun))]
+       *all-events*))
+
 (finalize-class tre-html-document)
