@@ -360,7 +360,7 @@
 
 (progn
   ,@(@ [`(defmethod tre-element ,(make-symbol (upcase _)) (fun)
-           (*event-module*.hook ,_ fun this))]
-       (remove "focus" *all-events*)))   ; TODO: Prefix names instead?
+           (this.add-event-listener ,_ fun))]
+       *all-events*))
 
 (finalize-class tre-element)
