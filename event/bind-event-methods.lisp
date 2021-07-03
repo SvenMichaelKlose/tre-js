@@ -1,12 +1,12 @@
 (defmacro bind-event-methods (event-module &rest event-types)
   `(progn
-     ,@(@ [`((slot-value ,event-module 'hook) ,(downcase (symbol-name _))
-                                              (bind (slot-value this ',($ '_ _))))]
+     ,@(@ [`((car this._elements).add-event-listener ,(downcase (symbol-name _))
+                                                     (bind (slot-value this ',($ '_ _))))]
           event-types)))
 
-(defmacro bind-event-methods-element (event-module elm &rest event-types)
+(defmacro bind-event-methods-element (elm &rest event-types)
   `(progn
-     ,@(@ [`((slot-value ,event-module 'hook) ,(downcase (symbol-name _))
-                                              (bind (slot-value this ',($ '_ _)))
-                                              ,elm)]
+     ,@(@ [`((slot-value ,elm 'add-event-listener) ,(downcase (symbol-name _))
+                                                   (bind (slot-value this ',($ '_ _)))
+                                                   ,elm)]
           event-types)))

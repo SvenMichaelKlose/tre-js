@@ -1,3 +1,5 @@
+; TODO: Add all event names. (pixel)
+
 (const *mouse-events*             '("click" "dblclick"
                                     "mouseup" "mousedown"
                                     "mousemove"
@@ -10,7 +12,7 @@
 (const *form-events*              '("submit" "change" "input" "focus" "blur"))
 (const *media-events*             '("play" "ended"))
 (const *network-events*           '("online" "offline"))
-(const *other-events*             '("contextmenu" "drop" "unload"))
+(const *other-events*             '("contextmenu" "drop" "unload" "text-modified"))
 
 (const *all-events* (+ *mouse-events* *touch-events* *ignored-dragndrop-events*
                        *key-events*
