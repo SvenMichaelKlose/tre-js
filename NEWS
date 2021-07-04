@@ -1,4 +1,7 @@
-Changes relative to js-0.1:
+Changes relative to js-0.2:
+  * Removed virtual events.
+
+Changes of js-0.2 relative to js-0.1:
   * DETECT-LANGUAGE returns country code in keyword package.
   * Obfuscation exceptions have been removed.  tré does not
     identifier obfuscation anymore.
