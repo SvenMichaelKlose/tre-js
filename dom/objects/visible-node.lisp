@@ -6,7 +6,6 @@
 (defclass visible-node ())
 
 (defmember visible-node
-    _unhooks
     parent-node
     next-sibling
     previous-sibling
@@ -18,7 +17,7 @@
 (defmethod visible-node clone (children?)
   (dom-tree-extend (clone-node children?)))
 
-(defmethod visible-node remove-without-listeners ()
+(defmethod visible-node remove ()
   (& (element? this)
      (this.attr? "debugonremove")
      (invoke-debugger))
@@ -51,14 +50,6 @@
      (doarray (x this.child-nodes this)
        (element-extend x)
        (x.walk fun)))
-  this)
-
-(defmethod visible-node remove ()
-  (& (element? this)
-     (this.remove-children))
-  (@ (i _unhooks)
-    (funcall i this))
-  (remove-without-listeners)
   this)
 
 (defmethod visible-node self-and-next ()

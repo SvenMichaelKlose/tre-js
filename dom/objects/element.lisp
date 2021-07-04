@@ -57,13 +57,7 @@
 
 (defmethod tre-element remove-children ()
   (do-children (x this this)
-    (? (element? x)
-       (x.remove)
-       (x.remove-without-listeners))))
-
-(defmethod tre-element remove-children-without-listeners ()
-  (do-children (x this this)
-    (x.remove-without-listeners)))
+    (x.remove)))
 
 (defmethod tre-element add (x)
   (?
