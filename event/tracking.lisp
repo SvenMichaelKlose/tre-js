@@ -2,7 +2,6 @@
 
 
 (var *key-stats* (make-array))
-(var *last-click-shift-down?* nil)
 (var *shift-down?* nil)
 (var *ctrl-down?* nil)
 (var *alt-down?* nil)
@@ -26,8 +25,6 @@
 
 (document.mousemove [(= *pointer-x* _.page-x
                         *pointer-y* _.page-y)])
-
-(document.click [(log-message "trclick")(= *last-click-shift-down?* (log-message *shift-down?*)]))
 
 
 (var *last-hovered* nil)
