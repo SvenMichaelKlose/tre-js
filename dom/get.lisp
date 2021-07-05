@@ -1,3 +1,8 @@
+(fn self-and-ancestors (node)
+  (with-queue elms
+    (do-self-and-ancestors (x node (queue-list elms))
+      (enqueue elms x))))
+
 (fn ancestor-or-self-if (node pred)
   (do-self-and-ancestors (x node)
     (& (funcall pred x)
