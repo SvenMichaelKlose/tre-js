@@ -19,7 +19,6 @@
        ((slot-value i ',name) ,@args))))
 
 (def-nodelist-method remove)
-(def-nodelist-method remove-without-event-listeners)
 (def-nodelist-method show)
 (def-nodelist-method hide)
 
