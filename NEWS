@@ -3,6 +3,7 @@ Changes relative to js-0.2:
   * LOG-MESSAGE has been renamed to DUMP.
   * New macro SELF-AND-ANCESTORS.
   * Incompatible changes of NODELIST.
+  * Removed almost all DO-* macros for DOM traversal.
 
 Changes of js-0.2 relative to js-0.1:
   * DETECT-LANGUAGE returns country code in keyword package.

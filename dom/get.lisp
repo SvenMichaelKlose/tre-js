@@ -1,18 +1,15 @@
-(fn self-and-ancestors (node)
-  (with-queue elms
-    (do-self-and-ancestors (x node (queue-list elms))
-      (enqueue elms x))))
-
-(fn ancestor-or-self-if (node pred)
-  (do-self-and-ancestors (x node)
+(fn ancestor-or-self-if (x pred)
+  (while x nil
     (& (funcall pred x)
-       (return x))))
+       (return x))
+    (= x x.parent-node)))
 
 (fn ancestor-or-self? (x elm)
   (ancestor-or-self-if x [eq _ elm]))
 
-(fn ancestors-or-self-if (node pred)
+(fn ancestors-or-self-if (x pred)
   (with-queue elms
-    (do-self-and-ancestors (x node (queue-list elms))
+    (while x (queue-list elms)
       (& (funcall pred x)
-         (enqueue elms x)))))
+         (enqueue elms x))
+      (= x x.parent-node))))
