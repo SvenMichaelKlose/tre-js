@@ -6,11 +6,7 @@
 
 (defmethod nodelist list () _list)
 
-(defmethod nodelist iterate (fun)
-  (@ (i _list)
-    (funcall fun i)))
-
-(defmethod nodelist filter (fun)
+(defmethod nodelist map (fun)
   (@ fun _list))
 
 (defmacro def-nodelist-method (name &rest args)
@@ -18,7 +14,12 @@
      (@ (i _list)
        ((slot-value i ',name) ,@args))))
 
+(def-nodelist-method attr name val)
+(def-nodelist-method set-style name val)
 (def-nodelist-method remove)
+(def-nodelist-method remove-class x)
+(def-nodelist-method remove-classes x)
+(def-nodelist-method remove-styles)
 (def-nodelist-method show)
 (def-nodelist-method hide)
 
