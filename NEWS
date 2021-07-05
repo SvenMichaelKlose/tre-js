@@ -1,6 +1,7 @@
 Changes relative to js-0.2:
   * Removed virtual events.
   * LOG-MESSAGE has been renamed to DUMP.
+  * New macro SELF-AND-ANCESTORS.
 
 Changes of js-0.2 relative to js-0.1:
   * DETECT-LANGUAGE returns country code in keyword package.
