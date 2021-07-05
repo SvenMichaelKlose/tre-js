@@ -15,12 +15,13 @@
        ((slot-value i ',name) ,@args))))
 
 (def-nodelist-method attr name val)
-(def-nodelist-method set-style name val)
-(def-nodelist-method remove)
+(def-nodelist-method add-class x)
 (def-nodelist-method remove-class x)
 (def-nodelist-method remove-classes x)
-(def-nodelist-method remove-styles)
+(def-nodelist-method remove)
 (def-nodelist-method show)
 (def-nodelist-method hide)
+(def-nodelist-method set-style name val)
+(def-nodelist-method remove-styles)
 
 (finalize-class nodelist)
