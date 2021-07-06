@@ -144,7 +144,7 @@
   attrs)
 
 (defmethod tre-element attr (name value)
-  (? value
+  (? (defined? value)
      (write-attribute name value)
      (read-attribute name)))
 
