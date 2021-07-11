@@ -298,7 +298,7 @@
   (member this (array-list ((| parent-node
                                owner-document).query-selector-all css-selector))))
 
-(defmethod tre-element get (css-selector)
+(defmethod tre-element $? (css-selector)
   (? (head? css-selector "<")
      (alet (subseq css-selector 1)
        (? (is? !)
@@ -306,14 +306,14 @@
           (ancestor-or-self !)))
      (query-selector css-selector)))
 
+(defmethod tre-element $* (css-selector)
+  (new nodelist (get-list css-selector)))
+
 (defmethod tre-element get-list (css-selector)
   (array-list (query-selector-all css-selector)))
 
-(defmethod tre-element get-last (css-selector)
-  (last (get-list css-selector)))
-
-(defmethod tre-element get-nodes (css-selector)
-  (new nodelist (get-list css-selector)))
+;(defmethod tre-element get-last (css-selector)
+;  (last (get-list css-selector)))
 
 (defmethod tre-element ancestor-or-self (css-selector)
   (alet (array-list (this.owner-document.query-selector-all css-selector))
